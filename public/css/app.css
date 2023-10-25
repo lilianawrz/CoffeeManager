@@ -1,0 +1,82 @@
+header {
+background-color: white;
+width: 100%;
+}
+.html, .body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: rgba(228, 228, 228, 0.856);
+
+    }
+
+#card{
+    padding: 20px;
+}
+
+#footer{
+    background-color: white;
+
+}
+
+form{
+    margin: 10px;
+    padding: 20px;
+
+}
+.valor {
+    color: red;
+}
+
+#buttonSalvar {
+  background: rgb(30, 134, 65);
+
+	border-radius: 5px !important;
+    padding: 7px;
+	border: none;
+	box-shadow: none;
+	color: white !important;
+	font-family: arial !important;
+	font-weight: normal !important;
+	/* 	width: 120px !important; */
+	/* 	height: 35px !important; */
+	margin-bottom: 8px;
+}
+
+#button{
+    background: rgb(52, 177, 199);
+
+      border-radius: 5px !important;
+      padding: 7px;
+      border: none;
+      box-shadow: none;
+      color: white !important;
+      font-family: arial !important;
+      font-weight: normal !important;
+      /* 	width: 120px !important; */
+      /* 	height: 35px !important; */
+      margin-bottom: 8px;
+  }
+
+a{
+    text-decoration:none;
+}
+
+#qnt {
+    width: 20%;
+}
+
+p {
+    padding: 3px;
+    text-align:justify;
+}
+
+.semimagem{
+    width: 200px;
+
+}
+
+.inputImage{
+    display: none;
+
+}
