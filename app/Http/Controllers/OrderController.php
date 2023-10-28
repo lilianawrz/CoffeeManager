@@ -2,70 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Order;
-use App\Models\User;
+use App\Models\Client;
 use App\Models\Payment;
 
 class OrderController extends Controller
 {
+
     /**
-     * Carrega a listagem de pedidos.
+     * Carrega a listagem de dados.
      */
     public function index()
     {
-        $order = Order::all();
+        $orders = Order::all();
 
-        return view('order.list')->with(['order' => $order]);
+        return view('order.list')->with(['orders' => $orders]);
+
     }
 
     /**
-     * Carrega o formulário de criação de pedido.
+     * Carrega o formulário.
      */
     public function create()
     {
-        $clients = User::orderBy('name')->get();
-        $product = Product::orderBy('name')->get();
+        $clients = Client::orderBy('name')->get();
         $payments = Payment::orderBy('name')->get();
+        return view('order.form')->with(['clients' => $clients, 'payments' => $payments]);
 
-        return view('order.form')->with(['clients' => $clients, 'product' => $product, 'payments' => $payments]);
     }
 
     /**
-     * Salva os dados do formulário de criação de pedido.
+     * Salva os dados do formulário.
      */
     public function store(Request $request)
     {
 
-        // Validação dos campos
         $request->validate([
-            'name' => 'required|max:250',
-            'moment' => 'required|date',
-            'orderStatus' => 'required|max:250',
-
-
-
+            'clent_id' => 'required',
+            'payment_id' => 'required'
         ], [
-            // Mensagens de erro personalizadas
-            'name.required' => "O campo :attribute é obrigatório.",
-            'name.max' => "O campo :attribute deve ter no máximo 250 caracteres.",
-            'moment.required' => "O campo :attribute é obrigatório.",
-            'moment.date' => "O campo :attribute deve ser uma data válida.",
-            'orderStatus.required' => "O campo :attribute é obrigatório.",
-            'orderStatus.max' => "O campo :attribute deve ter no máximo 250 caracteres.",
-
+            ' client_id.required' => "O :attribute é obrigatório",
+            ' payment_id.required' => "O :attribute é obrigatório",
 
         ]);
+        $data = [
+            'moment' => $request->moment,
+            'status' => $request->status,
+            'client_id' => $request->client_id,
+            'payment_id' => $request->payment_id,
+        ];
 
-        Order::create($request->all());
+        Order::create($data);
 
-        return redirect('order')->with('success', "Pedido cadastrado com sucesso!");
+        return redirect('order')->with('success', "Cadastrado com sucesso!");
     }
 
-
     /**
-     * Mostra os detalhes de um pedido.
+     * Carrega apenas 1 registro da tabela.
      */
     public function show(Order $order)
     {
@@ -73,82 +67,65 @@ class OrderController extends Controller
     }
 
     /**
-     * Carrega o formulário de edição de pedido.
+     * Carrega o formulário para edição.
      */
     public function edit($id)
     {
-
         $order = Order::find($id);
-        $clients = User::orderBy('name')->get();
-        $product = Product::orderBy('name')->get();
+        $clients = Client::orderBy('name')->get();
         $payments = Payment::orderBy('name')->get();
 
-        return view('order.form')->with([
-            'order' => $order,
-            'clients' => $clients,
-            'product' => $product,
-            'payments' => $payments
-        ]);
+        return view('order.form')->with(['order' => $order, 'clients' => $clients, 'payments' => $payments]);
     }
 
     /**
-     * Atualiza os dados do pedido.
+     * Atualiza os dados do formulário.
      */
     public function update(Request $request, Order $order)
     {
-        // Validação dos campos
+
         $request->validate([
-            'name' => 'required|max:250',
-            'moment' => 'required|date',
-            'orderStatus' => 'required|max:250',
-
-
+            'client_id' => 'required',
+            'payment_id' => 'required'
         ], [
-            // Mensagens de erro personalizadas
-            'name.required' => "O campo :attribute é obrigatório.",
-            'name.max' => "O campo :attribute deve ter no máximo 250 caracteres.",
-            'moment.required' => "O campo :attribute é obrigatório.",
-            'moment.date' => "O campo :attribute deve ser uma data válida.",
-            'orderStatus.required' => "O campo :attribute é obrigatório.",
-            'orderStatus.max' => "O campo :attribute deve ter no máximo 250 caracteres.",
+            ' client_id.required' => "O :attribute é obrigatório",
+            ' payment_id.required' => "O :attribute é obrigatório",
 
         ]);
-
-        // Atualize os campos do pedido
         $data = [
-            'name' => $request->name,
             'moment' => $request->moment,
-            'orderStatus' => $request->orderStatus,
-            'product_id' => $request->product_id,
+            'status' => $request->status,
             'client_id' => $request->client_id,
             'payment_id' => $request->payment_id,
         ];
 
+
+
         Order::updateOrCreate(['id' => $request->id], $data);
-        return redirect('order')->with('success', "Pedido atualizado com sucesso!");
+
+
+        return redirect('order')->with('success', "Atualizado com sucesso!");
     }
 
     /**
-     * Remove o pedido do banco de dados.
+     * Remove o registro do banco de dados.
      */
     public function destroy($id)
     {
-        $order = Order::findOrFail($id);
+        $order = Order::find($id);
         $order->delete();
-
-        return redirect('order')->with('success', "Pedido removido com sucesso!");
+        return redirect('order')->with('success', "Removido com sucesso!");
     }
     public function search(Request $request)
     {
 
         if (!empty($request->value)) {
 
-            $order = Order::where($request->type, 'like', "%" . $request->value . "%")->get();
+            $orders = Order::where($request->type, 'like', "%" . $request->value . "%")->get();
         } else {
-            $order = Order::all();
+            $orders = Order::all();
         }
-        return view('order.list')->with(['order' => $order]);
+        return view('order.list')->with(['orders' => $orders]);
 
     }
-
 }

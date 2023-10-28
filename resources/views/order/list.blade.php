@@ -42,32 +42,33 @@
                         <thead class="table">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Nome</th>
+
                                 <th scope="col">Data</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Cliente</th>
-                                <th scope="col">Produto</th>
                                 <th scope="col">Pagamento</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($order as $item)
+                            @foreach ($orders as $item)
                                 <tr class="border-b dark:border-neutral-500">
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
+
                                     <td>{{ $item->moment }}</td>
                                     <td>{{ $item->orderStatus }}</td>
                                     <td>{{ $item->client->name ?? '' }}</td>
                                     <td>{{ $item->items->name ?? '' }}</td>
-                                    <td>{{ $item->payment->name ?? '' }}
-                                    </td>
+                                    <td>{{ $item->payment->name ?? '' }}</td>
                                     <td class="whitespace-nowrap px-6 py-4"><a
                                             href="{{ route('order.edit', $item->id) }}">Editar</a></td>
-                                    <td class="whitespace-nowrap px-6 py-4"><a
-                                            href="{{ route('order.destroy', $item->id) }}"
+
+
+                                    <td class="whitespace-nowrap px-6 py-4">
+                                        <a href="{{ route('order.destroy', $item->id) }}"
                                             onclick="return confirm('Deseja excluir?')">Excluir</a>
                                     </td>
+
                                 </tr>
                             @endforeach
                         @endsection

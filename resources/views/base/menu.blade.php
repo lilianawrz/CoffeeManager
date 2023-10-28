@@ -14,22 +14,25 @@
                 </li>
                 <li class="nav-item">
 
+                    <a href="{{ route('product.index') }}" class="nav-link">Produtos</a>
+                </li>
+                <li class="nav-item">
+
                     <a href="{{ route('order.create') }}" class="nav-link">Novo
                         pedido</a>
                 </li>
                 <li class="nav-item">
 
+                    <a href="{{ route('order.index') }}" class="nav-link">Vendas</a>
+                </li>
+
+                <li class="nav-item">
+
                     <a href="{{ route('company.create') }}" class="nav-link">Nova
                         empresa</a>
                 </li>
-                <li class="nav-item">
 
-                    <a href="{{ route('product.index') }}" class="nav-link">Produtos</a>
-                </li>
-                <li class="nav-item">
 
-                    <a href="{{ route('order.index') }}" class="nav-link">Vendas</a>
-                </li>
                 <li class="nav-item">
 
                     <a href="{{ route('company.index') }}" class="nav-link">Empresas</a>

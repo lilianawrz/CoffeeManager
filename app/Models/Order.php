@@ -13,7 +13,7 @@ class Order extends Model
     protected $casts = [
         'moment' => 'date',
         'client_id' => "integer",
-        'payment_id' => "iteger"
+        'payment_id' => "integer"
     ];
 
     public function client()

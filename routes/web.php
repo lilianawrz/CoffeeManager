@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatisticController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -9,6 +10,7 @@ use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\HomeController;
 
 
 
@@ -42,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
+    Route::get('/chart', [StatisticController::class, 'index'])->name('estatistic.index');
     //route product
     Route::get(
         '/product',
@@ -117,7 +121,6 @@ Route::middleware('auth')->group(function () {
         '/order/search',
         [OrderController::class, 'search']
     )->name('order.search');
-
 
     //rota company
     Route::resource('/company', CompanyController::class);

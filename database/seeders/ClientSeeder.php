@@ -24,8 +24,6 @@ class ClientSeeder extends Seeder
                 'cpf' => $faker->cpf,
                 'email' => $faker->email,
                 'phone' => $faker->phoneNumber,
-                'image' => 'image/client/' . $faker->image('public/storage/image/client', 640, 480, null, false),
-
             ]
         );
     }

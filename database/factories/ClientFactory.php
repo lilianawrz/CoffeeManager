@@ -22,7 +22,6 @@ class ClientFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'cpf' => $this->faker->cpf,
             'phone' => $this->faker->phoneNumber,
-             'image' => 'image/client/' . $this->faker->image('public/storage/image/client', 640, 480, null, false),
 
         ];
     }
