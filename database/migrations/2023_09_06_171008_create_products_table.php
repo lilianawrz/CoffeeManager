@@ -16,16 +16,16 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 250);
             $table->string('description', 350);
-
-            $table->decimal('price', 14, 2); // Corrigido o tipo de dados para decimal
+            $table->decimal('price', 14, 2);
             $table->integer('quantity')->default(0);
             $table->decimal('limitWeight')->default(0);
             $table->date('validity')->nullable();
             $table->string('image', 150)->nullable();
-            $table->foreignId('category_id')->nullable()
-                ->constrained('categories')->default(null);
-            $table->foreignId('company_id')->nullable()
-                ->constrained('companies')->default(null);
+            $table->foreignId('category_id')->nullable()->constrained('categories')->default(null);
+
+            // Adicionei um nome exclusivo para a restrição de chave estrangeira
+            $table->foreignId('company_id')->nullable()->constrained('companies')->default(null)->index('fk_company_id');
+
             $table->timestamps();
         });
 

@@ -37,15 +37,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required|max:250',
-            'description' => 'required|max:350'
+            'description' => 'required|max:350',
         ], [
-            ' name.required' => "O :attribute é obrigatório",
-            ' name.max' => "Só é permitido 250 caracteres no :attribute! ",
-            ' description.required' => "O :attribute é obrigatório",
-            ' description.max' => "Só é permitido 350 caracteres no :attribute! ",
+            'name.required' => "O :attribute é obrigatório",
+            'name.max' => "Só é permitido 250 caracteres no :attribute!",
+            'description.required' => "O :attribute é obrigatório",
+            'description.max' => "Só é permitido 350 caracteres no :attribute!",
         ]);
 
         $data = [
@@ -57,18 +56,15 @@ class ProductController extends Controller
             'validity' => $request->validity,
             'category_id' => $request->category_id,
             'company_id' => $request->company_id,
-
         ];
 
         $image = $request->file('image');
-        //verifica se existe imagem no formulário
+
         if ($image) {
             $file_name = date('YmdHis') . '.' . $image->getClientOriginalExtension();
-            $diretory = "image/product/";
-            //salva a imagem em uma pasta do sistema.
-            $image->storeAs($diretory, $file_name, 'public');
-
-            $data['image'] = $diretory . $file_name;
+            $directory = "images/product/";
+            $image->storeAs($directory, $file_name, 'public');
+            $data['image'] = $directory . $file_name;
         }
 
         Product::create($data);
@@ -101,16 +97,16 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-
         $request->validate([
             'name' => 'required|max:250',
-            'description' => 'required|max:350'
+            'description' => 'required|max:350',
         ], [
-            ' name.required' => "O :attribute é obrigatório",
-            ' name.max' => "Só é permitido 250 caracteres no :attribute! ",
-            ' description.required' => "O :attribute é obrigatório",
-            ' description.max' => "Só é permitido 350 caracteres no :attribute! ",
+            'name.required' => "O :attribute é obrigatório",
+            'name.max' => "Só é permitido 250 caracteres no :attribute!",
+            'description.required' => "O :attribute é obrigatório",
+            'description.max' => "Só é permitido 350 caracteres no :attribute!",
         ]);
+
         $data = [
             'name' => $request->name,
             'description' => $request->description,
@@ -120,21 +116,18 @@ class ProductController extends Controller
             'validity' => $request->validity,
             'category_id' => $request->category_id,
             'company_id' => $request->company_id,
-            'image' => $request->image,
         ];
 
         $image = $request->file('image');
-        //verifica se existe imagem no formulário
+
         if ($image) {
             $file_name = date('YmdHis') . '.' . $image->getClientOriginalExtension();
-            $diretory = "image/product/";
-            //salva a imagem em uma pasta do sistema.
-            $image->storeAs($diretory, $file_name, 'public');
-
-            $data['image'] = $diretory . $file_name;
+            $directory = "images/product/";
+            $image->storeAs($directory, $file_name, 'public');
+            $data['image'] = $directory . $file_name;
         }
 
-        Product::updateOrCreate(['id' => $request->id], $data);
+        $product->update($data);
 
         return redirect('product')->with('success', "Atualizado com sucesso!");
     }

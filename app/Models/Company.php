@@ -21,7 +21,10 @@ class Company extends Model
     protected $casts = [
         'deadline' => 'integer'
     ];
-
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'company_id', 'id');
+    }
     use HasFactory;
 
 }

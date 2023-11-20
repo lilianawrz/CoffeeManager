@@ -40,19 +40,23 @@ class CompanyController extends Controller
 
         $request->validate([
             'name' => 'required|max:250',
-            'cnpj' => 'required|max:15',
+            'cnpj' => 'required|max:25',
 
         ], [
             ' name.required' => "O :attribute é obrigatório",
             ' name.max' => "Só é permitido 250 caracteres no :attribute! ",
             ' cnpj.required' => "O :attribute é obrigatório",
-            ' cnpj.max' => "Só é permitido 15 caracteres no :attribute! ",
+            ' cnpj.max' => "Só é permitido 25 caracteres no :attribute! ",
         ]);
 
         $data = [
             'name' => $request->name,
             'cnpj' => $request->cnpj,
-            'delivery' => $request->delivery,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'paymentType' => $request->paymentType,
+            'deadline' => $request->deadline,
+
 
         ];
 
@@ -100,7 +104,10 @@ class CompanyController extends Controller
         $data = [
             'name' => $request->name,
             'cnpj' => $request->cnpj,
-            'delivery' => $request->delivery,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'paymentType' => $request->paymentType,
+            'deadline' => $request->deadline,
 
         ];
 
@@ -114,8 +121,9 @@ class CompanyController extends Controller
      */
     public function destroy($id)
     {
-        $company = Company::find($id);
-        $company->delete();
+        $companies = Company::find($id);
+        $companies->products()->delete();
+        $companies->delete();
         return redirect('company')->with('success', "Removido com sucesso!");
     }
     public function search(Request $request)
