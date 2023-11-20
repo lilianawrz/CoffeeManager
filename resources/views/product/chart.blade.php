@@ -1,42 +1,33 @@
-<!doctype html>
-<html lang="en">
+@extends('base.app')
+@section('titulo', 'Formulário de produto')
+@section('content')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chart Sample</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-</head>
 
-<body class="h-screen bg-gray-100">
 
-    <div class="container px-4 mx-auto">
+<div class="container px-4 mx-auto">
 
-        <div class="p-6 m-20 bg-white rounded shadow">
-            {!! $chart->container() !!}
-        </div>
-
+    <div class="p-6 m-20 bg-white rounded shadow">
+        {!! $chart->container() !!}
     </div>
 
-    <script src="{{ $chart->cdn() }}"></script>
+</div>
 
-    {{ $chart->script() }}
+<script src="{{ $chart->cdn() }}"></script>
+
+{{ $chart->script() }}
 
 
 
-    <div class="container px-4 mx-auto">
+<div class="container px-4 mx-auto">
 
-        <div class="p-6 m-20 bg-white rounded shadow">
-            {!! $receita->container() !!}
-        </div>
-
+    <div class="p-6 m-20 bg-white rounded shadow">
+        {!! $receita->container() !!}
     </div>
 
-    <script src="{{ $receita->cdn() }}"></script>
+</div>
 
-    {{ $receita->script() }}
-</body>
+<script src="{{ $receita->cdn() }}"></script>
 
-</html>
+{{ $receita->script() }}
+
+@endsection

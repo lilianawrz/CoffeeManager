@@ -37,21 +37,23 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
-            'clent_id' => 'required',
+            'client_id' => 'required',
             'payment_id' => 'required'
         ], [
-            ' client_id.required' => "O :attribute é obrigatório",
-            ' payment_id.required' => "O :attribute é obrigatório",
-
+            'client_id.required' => "O :attribute é obrigatório",
+            'payment_id.required' => "O :attribute é obrigatório",
         ]);
+
         $data = [
             'moment' => $request->moment,
             'status' => $request->status,
             'client_id' => $request->client_id,
             'payment_id' => $request->payment_id,
         ];
+
+        // Adicione logs para debug
+        \Log::info('Dados recebidos no método store:', $data);
 
         Order::create($data);
 
@@ -83,15 +85,14 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-
         $request->validate([
             'client_id' => 'required',
             'payment_id' => 'required'
         ], [
-            ' client_id.required' => "O :attribute é obrigatório",
-            ' payment_id.required' => "O :attribute é obrigatório",
-
+            'client_id.required' => "O :attribute é obrigatório",
+            'payment_id.required' => "O :attribute é obrigatório",
         ]);
+
         $data = [
             'moment' => $request->moment,
             'status' => $request->status,
@@ -99,13 +100,11 @@ class OrderController extends Controller
             'payment_id' => $request->payment_id,
         ];
 
-
-
-        Order::updateOrCreate(['id' => $request->id], $data);
-
+        $order->update($data);
 
         return redirect('order')->with('success', "Atualizado com sucesso!");
     }
+
 
     /**
      * Remove o registro do banco de dados.

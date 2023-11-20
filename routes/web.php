@@ -10,7 +10,7 @@ use App\Http\Controllers\ProductOrderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\HomeController;
+
 
 
 
@@ -85,7 +85,6 @@ Route::middleware('auth')->group(function () {
 
 
     //order routes
-
     Route::get(
         '/order',
         [OrderController::class, 'index']
@@ -116,14 +115,42 @@ Route::middleware('auth')->group(function () {
         [OrderController::class, 'destroy']
     )->name('order.destroy');
 
-
     Route::post(
         '/order/search',
         [OrderController::class, 'search']
     )->name('order.search');
 
     //rota company
-    Route::resource('/company', CompanyController::class);
+
+    Route::get(
+        '/company',
+        [CompanyController::class, 'index']
+    )->name('company.index');
+
+    Route::get(
+        '/company/create',
+        [CompanyController::class, 'create']
+    )->name('company.create');
+
+    Route::post(
+        '/company',
+        [CompanyController::class, 'store']
+    )->name('company.store');
+
+    Route::get(
+        '/company/edit/{id}',
+        [CompanyController::class, 'edit']
+    )->name('company.edit');
+
+    Route::put(
+        '/company/update/{id}',
+        [CompanyController::class, 'update']
+    )->name('company.update');
+
+    Route::get(
+        '/company/destroy/{id}',
+        [CompanyController::class, 'destroy']
+    )->name('company.destroy');
 
     Route::post(
         '/company/search',
@@ -131,7 +158,37 @@ Route::middleware('auth')->group(function () {
     )->name('company.search');
 
     //rota client
-    Route::resource('/client', ClientController::class);
+
+    Route::get(
+        '/client',
+        [ClientController::class, 'index']
+    )->name('client.index');
+
+    Route::get(
+        '/client/create',
+        [ClientController::class, 'create']
+    )->name('client.create');
+
+    Route::post(
+        '/client',
+        [ClientController::class, 'store']
+    )->name('client.store');
+
+    Route::get(
+        '/client/edit/{id}',
+        [ClientController::class, 'edit']
+    )->name('client.edit');
+
+    Route::put(
+        '/client/update/{id}',
+        [ClientController::class, 'update']
+    )->name('client.update');
+
+    Route::get(
+        '/client/destroy/{id}',
+        [ClientController::class, 'destroy']
+    )->name('client.destroy');
+
 
     Route::post(
         '/client/search',

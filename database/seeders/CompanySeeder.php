@@ -21,4 +21,5 @@ class CompanySeeder extends Seeder
             'deadline' => $faker->numberBetween(1, 30),
         ]);
     }
+    
 }
